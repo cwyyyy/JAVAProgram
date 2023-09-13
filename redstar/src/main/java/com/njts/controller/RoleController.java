@@ -44,9 +44,8 @@ public class RoleController {
     @ApiOperation("获取分页后的角色集合")
     @GetMapping("role-page-list")
     public Result role_page_list(@ApiParam("第几页") Long pageSize, @ApiParam("每页显示多少条数据")Long pageNum, Long totalNum, Role role){
-        Page page = roleService.pageList(pageNum, pageSize,role);
-        PageR pageR = new PageR(page.getCurrent(), page.getSize(), page.getTotal(), page.getPages(), page.getRecords());
-        return Result.ok(pageR);
+        PageR page = roleService.pageList(pageNum, pageSize,role);
+        return Result.ok(page);
     }
 
     @ApiOperation("添加角色")
@@ -68,6 +67,7 @@ public class RoleController {
         CurrentUser currentUser = TokenUtils.getCurrentUser(token);
         //由谁修改
         role.setUpdateBy(currentUser.getUserId());
+
         boolean update = roleService.updateById(role);
         if (update){
             return Result.ok("修改成功--！");

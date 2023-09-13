@@ -1,6 +1,7 @@
 package com.njts.pojo;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -36,10 +37,15 @@ public class User implements Serializable {
     private Integer createBy;
 
   @TableField(fill = FieldFill.INSERT)
+  @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
   @TableField(fill = FieldFill.INSERT_UPDATE)
+   @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updateTime;
 
     private Integer updateBy;
+    //追加属性
+    @TableField(exist = false)
+    private  String getCode;
 
 }

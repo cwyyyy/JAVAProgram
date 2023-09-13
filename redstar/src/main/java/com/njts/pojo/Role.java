@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -45,12 +46,16 @@ public class Role implements Serializable {
     private Integer createBy;
 
     @TableField(fill = FieldFill.INSERT)
+     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
 
     private Integer updateBy;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
+     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updateTime;
-
+   //追加属性
+    @TableField(exist = false)
+    private  String getCode;
 
 }

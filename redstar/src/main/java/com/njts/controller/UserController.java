@@ -19,6 +19,8 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 
@@ -55,9 +57,8 @@ public class UserController {
 	@ApiOperation("查询用户并分页")
 	@GetMapping("/user-list")
 	public Result userListPage(@ApiParam("查询的当前页码") Long pageSize,@ApiParam("每页查询条数") Long pageNum, Long totalNum,@ApiParam("条件查询的用户条件") User user){
-		Page Page = userService.queryUserPage(pageNum, pageSize, user);
-		PageR page =new PageR(pageNum,pageSize,	Page.getTotal(),Page.getPages(),Page.getRecords());
-		return Result.ok(page);
+		PageR pageR = userService.queryUserPage(pageNum, pageSize, user);
+		return Result.ok(pageR);
 	}
 
 	@ApiOperation("添加用户")
@@ -85,7 +86,6 @@ public class UserController {
 		user.setUpdateBy(updateBy);
 		//执行业务
 		Result result = userService.updateUserState(user);
-
 		//响应
 		return result;
 	}
@@ -175,9 +175,12 @@ public class UserController {
 
 	//导出数据
 	@GetMapping("/exportTable")
-	public  Result exportTable(){
+	public  Result exportTable(@ApiParam("查询的当前页码") Long pageSize, @ApiParam("每页查询条数") Long pageNum, Long totalNum, @ApiParam("条件查询的用户条件") User user, HttpServletResponse response){
+//      Page page = userService.queryUserPage(pageNum, pageSize, user);
+//		List records = page.getRecords();
+//		userService.outFile(records,response);
 
-    return null;
+		return null;
 	}
 
 }

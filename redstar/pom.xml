@@ -150,9 +150,21 @@
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
 
+<!--  文档插件    -->
+      <dependency>
+          <groupId>org.apache.poi</groupId>
+          <artifactId>poi</artifactId>
+          <version>3.17</version>
+      </dependency>
+
+      <dependency>
+          <groupId>commons-fileupload</groupId>
+          <artifactId>commons-fileupload</artifactId>
+          <version>1.3.1</version>
+      </dependency>
 
 
-    </dependencies>
+</dependencies>
 
 
     <!--    依赖的版本控制-->
@@ -200,6 +212,7 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

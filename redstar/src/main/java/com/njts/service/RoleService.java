@@ -1,8 +1,8 @@
 package com.njts.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.njts.dto.AssignRoleDto;
 import com.njts.pojo.Auth;
+import com.njts.pojo.PageR;
 import com.njts.pojo.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -27,5 +27,5 @@ public interface RoleService extends IService<Role> {
    //重新分配用户角色
    public boolean reSetRoles(AssignRoleDto assignRoleDto);
 
-    Page pageList(Long pageNum, Long pageSize,Role role);
+    PageR pageList(Long pageNum, Long pageSize, Role role);
 }

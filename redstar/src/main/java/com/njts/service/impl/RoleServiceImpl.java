@@ -8,11 +8,8 @@ import com.njts.dto.AssignRoleDto;
 import com.njts.exception.BusinessException;
 import com.njts.mapper.RoleAuthMapper;
 import com.njts.mapper.UserRoleMapper;
-import com.njts.pojo.Auth;
-import com.njts.pojo.Role;
+import com.njts.pojo.*;
 import com.njts.mapper.RoleMapper;
-import com.njts.pojo.RoleAuth;
-import com.njts.pojo.UserRole;
 import com.njts.service.RoleAuthService;
 import com.njts.service.RoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -22,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -122,15 +118,16 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
-    public Page pageList(Long pageNum, Long pageSize,Role role) {
+    public PageR pageList(Long pageNum, Long pageSize, Role role) {
 
-        Page page=new Page<>(pageNum,pageSize);
+        Page page1=new Page<>(pageNum,pageSize);
         LambdaQueryWrapper<Role> qw=new LambdaQueryWrapper<>();
         qw.like(StringUtils.isNotBlank(role.getRoleCode()),Role::getRoleCode,role.getRoleCode());
         qw.like(StringUtils.isNotBlank(role.getRoleName()),Role::getRoleName,role.getRoleName());
         qw.like(StringUtils.isNotBlank(role.getRoleState()),Role::getRoleState,role.getRoleState());
-        Page page1 = roleMapper.selectPage(page,qw);
-        return page1;
+        Page page = roleMapper.selectToPage(page1,qw);
+           PageR pageR = new PageR(page.getCurrent(), page.getSize(), page.getTotal(), page.getPages(), page.getRecords());
+        return pageR;
     }
 
     //添加角色
