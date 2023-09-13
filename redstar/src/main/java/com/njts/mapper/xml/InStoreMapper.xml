@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njts.mapper.InStoreMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.njts.pojo.InStore">
+        <id column="ins_id" property="insId" />
+        <result column="store_id" property="storeId" />
+        <result column="product_id" property="productId" />
+        <result column="in_num" property="inNum" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="is_in" property="isIn" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ins_id, store_id, product_id, in_num, create_by, create_time, is_in
+    </sql>
+
+</mapper>

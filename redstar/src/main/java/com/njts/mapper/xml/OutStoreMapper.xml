@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njts.mapper.OutStoreMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.njts.pojo.OutStore">
+        <id column="outs_id" property="outsId" />
+        <result column="product_id" property="productId" />
+        <result column="store_id" property="storeId" />
+        <result column="tally_id" property="tallyId" />
+        <result column="out_price" property="outPrice" />
+        <result column="out_num" property="outNum" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="is_out" property="isOut" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        outs_id, product_id, store_id, tally_id, out_price, out_num, create_by, create_time, is_out
+    </sql>
+
+</mapper>

@@ -1,0 +1,7 @@
+1.前后端分离项目，不走session,那每次访问服务器其他地址时，生成新的上下文对象。
+2.security默认logout退出页面，若自己定义的退出路径重名，会重定向到系统定义的退出页面上。
+若不想走系统的，就  http.logout().disable();关掉它
+
+3.报错： Column 'store_id' in where clause is ambiguous---:
+当联表查询时，store_id作为where条件时 有多个表都有该字段，他不知道是哪个表的store_id所以报错
+
