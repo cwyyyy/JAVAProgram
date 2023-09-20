@@ -166,21 +166,16 @@ public class UserController {
 	@ApiOperation("修改用户权限")
     @PutMapping("/auth-grant")
 	public  Result auth_grant(@RequestBody AssignRoleAuthDto assignRoleAuthDto){
-//		boolean b = userService.updateUserAuthByUserId(assignRoleAuthDto.getAuthIds(), assignRoleAuthDto.getUserId());
-//		if (b) {return Result.ok("修改成功---！");
-//		}
-//		return Result.err(Result.CODE_ERR_BUSINESS,"添加失败");
+
 		return  Result.err(Result.CODE_ERR_BUSINESS,"暂不支持修改，请通过修改角色来修改权限！！");
 	}
 
 	//导出数据
 	@GetMapping("/exportTable")
-	public  Result exportTable(@ApiParam("查询的当前页码") Long pageSize, @ApiParam("每页查询条数") Long pageNum, Long totalNum, @ApiParam("条件查询的用户条件") User user, HttpServletResponse response){
-//      Page page = userService.queryUserPage(pageNum, pageSize, user);
-//		List records = page.getRecords();
-//		userService.outFile(records,response);
-
-		return null;
+	@ApiOperation("返回用户列表作为导出数据")
+	public  Result exportTable(@ApiParam("查询的当前页码") Long pageSize, @ApiParam("每页查询条数") Long pageNum, Long totalNum, @ApiParam("条件查询的用户条件") User user){
+		List<Object> resultList = userService.queryUserPage(pageNum, pageSize, user).getResultList();
+		return  Result.ok(resultList);
 	}
 
 }

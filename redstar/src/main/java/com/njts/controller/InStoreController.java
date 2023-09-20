@@ -5,14 +5,19 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.njts.pojo.InStore;
 import com.njts.pojo.PageR;
 import com.njts.pojo.Store;
+import com.njts.pojo.User;
 import com.njts.service.InStoreService;
 import com.njts.service.StoreService;
 import com.njts.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.ibatis.annotations.Insert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * <p>
@@ -31,7 +36,6 @@ public class InStoreController {
     @Autowired
     private StoreService storeService;
 
-//storeId=1&productName=&startTime=&endTime=&pageSize=5&pageNum=1&totalNum=0
  @ApiOperation("分页查询")
  @GetMapping("instore-page-list")
     public Result instore_page_list(Long pageNum, Long pageSize, InStore inStore){
@@ -54,5 +58,12 @@ public class InStoreController {
           return inStoreService.lastInStore(inStore);
 
       }
+
+
+      	@GetMapping("/exportTable")
+	@ApiOperation("返回入库列表作为导出数据")
+	public  Result exportTable(@ApiParam("查询的当前页码") Long pageSize, @ApiParam("每页查询条数") Long pageNum, Long totalNum, @ApiParam("条件查询的用户条件") InStore inStore){
+		return  Result.ok(inStoreService.queryToPage(pageNum,pageSize,inStore).getResultList());
+	}
 }
 

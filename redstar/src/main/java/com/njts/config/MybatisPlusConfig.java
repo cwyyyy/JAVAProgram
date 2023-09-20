@@ -28,7 +28,6 @@ public class MybatisPlusConfig {
     //分页拦截器
     @Bean
     public PaginationInterceptor paginationInterceptor(){
-
         return  new PaginationInterceptor();
     }
 

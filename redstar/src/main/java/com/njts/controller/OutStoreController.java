@@ -12,6 +12,7 @@ import com.njts.utils.Result;
 import com.njts.utils.TokenUtils;
 import com.njts.utils.WarehouseConstants;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,28 +45,34 @@ public class OutStoreController {
 
     }
 
-     @ApiOperation("仓库列表")
-     @GetMapping("store-list")
-     public Result store_list() {
-         LambdaQueryWrapper<Store> qw=new LambdaQueryWrapper<>();
-                 qw.select(Store::getStoreId,Store::getStoreName);
-          return  Result.ok(storeService.list(qw));
+    @ApiOperation("仓库列表")
+    @GetMapping("store-list")
+    public Result store_list() {
+        LambdaQueryWrapper<Store> qw=new LambdaQueryWrapper<>();
+        qw.select(Store::getStoreId,Store::getStoreName);
+        return  Result.ok(storeService.list(qw));
 
-      }
+    }
 
-      @ApiOperation("分页查询出库列表")
+    @ApiOperation("分页查询出库列表")
     @GetMapping("outstore-page-list")
     public Result outstore_page_list(Long pageNum, Long pageSize, OutStore outStore){
-     PageR pageR=outStoreService.OutStoreToPage(pageNum,pageSize,outStore);
-     return Result.ok( pageR);
- }
+        PageR pageR=outStoreService.OutStoreToPage(pageNum,pageSize,outStore);
+        return Result.ok( pageR);
+    }
 
-      @ApiOperation("出库")
+    @ApiOperation("出库")
     @PutMapping("outstore-confirm")
     public Result outstore_confirm(@RequestBody OutStore outStore){
-    Result result= outStoreService.lastOutStore(outStore);
-     return result;
- }
+        Result result= outStoreService.lastOutStore(outStore);
+        return result;
+    }
+
+    @GetMapping("/exportTable")
+    @ApiOperation("返回出库列表作为导出数据")
+    public  Result exportTable(@ApiParam("查询的当前页码") Long pageSize, @ApiParam("每页查询条数") Long pageNum, Long totalNum, @ApiParam("条件查询的用户条件") OutStore outStore){
+        return  Result.ok(outStoreService.OutStoreToPage(pageNum,pageSize,outStore).getResultList());
+    }
 
 
 }

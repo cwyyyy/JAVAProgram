@@ -1,6 +1,5 @@
 package com.njts.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -15,12 +14,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.njts.service.InStoreService;
 import com.njts.utils.Result;
 import com.njts.utils.TokenUtils;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -39,7 +36,7 @@ public class BuyListServiceImpl extends ServiceImpl<BuyListMapper, BuyList> impl
     private InStoreService inStoreService;
 
     @Override
-    public Result queryPage(Long pageSize, Long pageNum, BuyList buyList) {
+    public PageR queryPage(Long pageSize, Long pageNum, BuyList buyList) {
         Page page=new Page<>(pageNum,pageSize);
         QueryWrapper<BuyList> qw=new QueryWrapper<BuyList>();
         qw.like(StringUtils.isNotBlank(buyList.getBuyUser()),"buy_user",buyList.getBuyUser());
@@ -48,9 +45,10 @@ public class BuyListServiceImpl extends ServiceImpl<BuyListMapper, BuyList> impl
         qw.like(StringUtils.isNotBlank((buyList.getIsIn())),"is_in",buyList.getIsIn());
         qw.le(StringUtils.isNotBlank(buyList.getEndTime()),"buy_time",buyList.getEndTime());
         qw.ge(StringUtils.isNotBlank(buyList.getStartTime()),"buy_time",buyList.getStartTime());
+
         List buyLists = buyListMapper.selectToPage(page, qw);
         PageR pageR=new PageR(pageNum,pageSize,page.getTotal(),page.getPages(), buyLists);
-        return  Result.ok(pageR);
+        return  pageR;
     }
 
 

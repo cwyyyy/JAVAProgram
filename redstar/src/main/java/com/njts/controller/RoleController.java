@@ -6,10 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.njts.dto.AssignAuthDto;
 import com.njts.dto.AssignRoleAuthDto;
 import com.njts.mapper.RoleAuthMapper;
-import com.njts.pojo.Auth;
-import com.njts.pojo.PageR;
-import com.njts.pojo.Role;
-import com.njts.pojo.RoleAuth;
+import com.njts.pojo.*;
 import com.njts.service.RoleService;
 import com.njts.utils.CurrentUser;
 import com.njts.utils.Result;
@@ -21,6 +18,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 @RestController
 @RequestMapping("/role")
@@ -117,5 +115,12 @@ public class RoleController {
 		}
 		return Result.err(Result.CODE_ERR_BUSINESS,"添加失败");
 	}
+    //导出数据
+	@GetMapping("/exportTable")
+	@ApiOperation("返回用户列表作为导出数据")
+	public  Result exportTable(@ApiParam("查询的当前页码") Long pageSize, @ApiParam("每页查询条数") Long pageNum, Long totalNum, Role role){
+		return  Result.ok( roleService.pageList(pageNum,pageSize,role).getResultList());
+	}
+
 }
 

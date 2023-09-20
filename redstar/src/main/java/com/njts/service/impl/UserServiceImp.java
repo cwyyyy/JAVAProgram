@@ -24,7 +24,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -169,93 +171,5 @@ public class UserServiceImp  implements UserService {
 	return  roleAuthService.saveBatch(AuthList);
 	}
 
-	@Override
-	public void outFile(List records, HttpServletResponse response) {
 
-	}
-
-	//导出数据为excel
-//	@Override
-//	public void outFile(List records, HttpServletResponse resp) {
-//    //它可以获取activitys数据，生成一个Excel文件,（也可以揣着这些数据直接输出，如写到浏览器）
-//        // workbook执行写功能
-//    HSSFWorkbook workbook = new HSSFWorkbook();
-//        HSSFSheet sheet = workbook.createSheet("用户列表");
-//        HSSFRow row = sheet.createRow(0);
-//        HSSFCell cell=null;
-//        cell = row.createCell(0);//单元格
-//        cell.setCellValue("用户名");
-//        cell = row.createCell(1);//单元格
-//        cell.setCellValue("昵称");
-//        cell = row.createCell(2);//单元格
-//        cell.setCellValue("用户状态");
-//        cell = row.createCell(3);//单元格
-//        cell.setCellValue("创建人");
-//        cell = row.createCell(4);//单元格
-//        cell.setCellValue("创建时间");
-//        Activity activity=null;
-//        HSSFRow row1=null;
-//        HSSFCell cell1=null;
-//        if (activitys !=null && activitys.size()>0) {
-//
-//            for (int i = 0; i < activitys.size(); i++) {
-//                //写入数据
-//                activity = activitys.get(i);
-//                row1 = sheet.createRow(i + 1);//第一行
-//                cell1 = row1.createCell(0);//第一个单元格
-//                cell1.setCellValue(activity.getName());
-//                cell1 = row1.createCell(1);//第二个单元格
-//                cell1.setCellValue(activity.getUser().getName());
-//                cell1 = row1.createCell(2);//。。。。。。。。。
-//                cell1.setCellValue(activity.getStartDate());
-//                cell1 = row1.createCell(3);
-//                cell1.setCellValue(activity.getEndDate());
-//                cell1 = row1.createCell(4);
-//                cell1.setCellValue(activity.getCost());
-//                cell1 = row1.createCell(5);
-//                cell1.setCellValue(activity.getDescription());
-//                cell1 = row1.createCell(6);
-//                cell1.setCellValue(activity.getCreateTime());
-//            }}
-//
-////        //输出流 写文件，生成文件
-////        FileOutputStream outputStream = new FileOutputStream("D:\\CRM\\CRM2023\\CRM01\\src\\main\\resources\\fails\\abc.xls");
-////        workbook.write(outputStream);
-//        //关闭资源
-////        outputStream.close();
-////        workbook.close();
-//
-//     //生成的文件下载到浏览器
-//        //设置响应类型
-//        resp.setContentType("application/octet-stream;charset=UTF-8");
-////        BufferedInputStream is=null;
-////        //读（从哪里读到内存）加一个缓冲管道
-////        try {
-////            is = new BufferedInputStream(new FileInputStream("D:\\CRM\\CRM2023\\CRM01\\src\\main\\resources\\fails\\abc.xls"));
-//        //获取输出流，写完直接发客户端
-//        OutputStream out=resp.getOutputStream();
-//
-//        workbook.write(out);
-//
-//        resp.addHeader("Content-Disposition","attachment;filename=myTest.xls");//响应头信息
-//            //读的是字节流,设置缓冲区，不要一个一个读，太慢
-////            byte[] buff=new byte[256];
-////            int len=0;
-////            while ((len=is.read(buff))!=-1){
-////                //写(复制)
-////                out.write(buff,0,len);
-////            }
-////        } catch (IOException e) {
-////            throw new RuntimeException(e);
-////        } finally {
-////            //不是自己new的不用关，out不是自己new的不用关
-////            is.close();
-//            workbook.close();
-//            out.flush();
-////        }
-//    }
-//
-//
-//
-//	}
 }

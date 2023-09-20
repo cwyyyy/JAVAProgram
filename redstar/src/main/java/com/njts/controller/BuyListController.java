@@ -6,16 +6,20 @@ import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.njts.pojo.BuyList;
 import com.njts.pojo.InStore;
 import com.njts.pojo.Store;
+import com.njts.pojo.User;
 import com.njts.service.BuyListService;
 import com.njts.service.StoreService;
 import com.njts.utils.Result;
 import com.njts.utils.WarehouseConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("/purchase")
@@ -39,7 +43,7 @@ public class BuyListController {
      @ApiOperation("分页查询采购单")
      @GetMapping("purchase-page-list")
      public Result purchase_page_list(Long pageSize,Long pageNum,BuyList buyList) {
-         return buyListService.queryPage(pageSize,pageNum,buyList);
+         return Result.ok(buyListService.queryPage(pageSize,pageNum,buyList));
 
      }
 
@@ -77,6 +81,11 @@ public class BuyListController {
                return buyListService.inStoreAndUpdate(buyList,token);
        }
 
+     @GetMapping("/exportTable")
+	@ApiOperation("返回采购列表作为导出数据")
+	public  Result exportTable(@ApiParam("查询的当前页码") Long pageSize, @ApiParam("每页查询条数") Long pageNum, Long totalNum, @ApiParam("条件查询的用户条件")BuyList buyList){
+		return  Result.ok(buyListService.queryPage(pageSize,pageNum,buyList).getResultList());
+	}
 
 
 

@@ -35,5 +35,4 @@ public interface UserService {
 
     boolean updateUserAuthByUserId(List<Integer> authIds, Integer userId);
 
-	void outFile(List records, HttpServletResponse response);
 }

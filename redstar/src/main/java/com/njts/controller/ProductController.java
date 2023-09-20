@@ -10,6 +10,7 @@ import com.njts.utils.WarehouseConstants;
 import com.njts.vo.ProductVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -119,14 +121,14 @@ public class ProductController {
 
     }
 
-      @ApiOperation("商品上下架")
+    @ApiOperation("商品上下架")
     @PutMapping("state-change")
     public Result state_change(@RequestBody Product product) {
       productService.updateById(product);
         return Result.ok("操作成功");
     }
 
-       @ApiOperation("删除商品")
+    @ApiOperation("删除商品")
     @DeleteMapping("product-delete/{id}")
     public Result product_delete(@PathVariable Integer id ) {
            productService.removeById(id);
@@ -140,11 +142,11 @@ public class ProductController {
         return Result.ok("操作成功");
     }
 
-      @ApiOperation("修改商品")
+    @ApiOperation("修改商品")
     @PutMapping("product-update")
     public Result product_update(@RequestBody Product product,@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
        //判断图片是否更改
-          if (!product.getImgs().contains(img_path)){
+       if (!product.getImgs().contains(img_path)){
            product.setImgs(img_path+product.getImgs());
           }
         product.setUpdateBy(TokenUtils.getCurrentUser(token).getUserId());
@@ -155,19 +157,10 @@ public class ProductController {
           else return Result.err(Result.CODE_ERR_SYS,"修改失败");
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@GetMapping("/exportTable")
+	@ApiOperation("返回商品列表作为导出数据")
+	public  Result exportTable(@ApiParam("查询的当前页码") Long pageSize, @ApiParam("每页查询条数") Long pageNum, Long totalNum, @ApiParam("条件查询的用户条件") ProductVO product){
+    PageR products = productService.getProducts(pageSize, pageNum, product);
+	return  Result.ok( products.getResultList());
+	}
 }
