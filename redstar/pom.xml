@@ -219,7 +219,7 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>com.njts.RedstarApplication</mainClass>
-                    <skip>true</skip>
+<!--                    <skip>true</skip>-->
                 </configuration>
                 <executions>
                     <execution>

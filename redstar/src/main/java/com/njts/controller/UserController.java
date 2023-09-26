@@ -113,7 +113,7 @@ public class UserController {
 
 
 	@ApiOperation("删除用户")
-	@GetMapping("/deleteUser/{userId}")
+	@DeleteMapping("/deleteUser/{userId}")
 	public Result deleteUser(@PathVariable Integer userId){
 		//执行业务
 		userService.deleteUserById(userId);
